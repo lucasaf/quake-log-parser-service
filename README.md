@@ -13,7 +13,7 @@ This application parses and analyzes Quake game server logs. It extracts key gam
 
 Before you can run the Quake Log Parser Service, ensure you have the following software installed on your system:
 
-1. **Node.js**: The runtime environment for running the application. You need Node.js version 12.x or later. You can download it from [Node.js official website](https://nodejs.org/).
+1. **Node.js**: The runtime environment for running the application. You need Node.js version 18.x or later. You can download it from [Node.js official website](https://nodejs.org/).
 
 2. **pnpm**: A fast and efficient package manager for JavaScript. It is used to manage the application's dependencies. Install pnpm globally using the following command:
 
