@@ -1,0 +1,1 @@
+export const LOG_PARSER_SERVICE = 'LOG_PARSER_SERVICE';
