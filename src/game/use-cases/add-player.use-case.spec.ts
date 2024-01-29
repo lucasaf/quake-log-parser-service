@@ -22,6 +22,7 @@ describe('AddPlayerUseCase', () => {
 
   it('should add a new player if not already in the game', () => {
     const player = 'Player1';
+
     addPlayerUseCase.execute(player);
 
     expect(game.players).toContain(player);
@@ -30,9 +31,25 @@ describe('AddPlayerUseCase', () => {
 
   it('should not add a player if they are already in the game', () => {
     const player = 'Player1';
+
     addPlayerUseCase.execute(player);
     addPlayerUseCase.execute(player);
 
     expect(game.players.filter((p) => p === player).length).toBe(1);
+  });
+
+  it('should add multiple different players to the game', () => {
+    const players = ['Player2', 'Player3', 'Player4'];
+
+    players.forEach((player) => {
+      addPlayerUseCase.execute(player);
+    });
+
+    players.forEach((player) => {
+      expect(game.players).toContain(player);
+      expect(game.kills[player]).toBe(0);
+    });
+
+    expect(game.players.length).toBe(players.length);
   });
 });

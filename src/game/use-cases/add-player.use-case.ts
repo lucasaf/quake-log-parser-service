@@ -11,7 +11,9 @@ export class AddPlayerUseCase implements IAddPlayerUseCase {
   public execute(player: string): void {
     if (!this.game.players.includes(player)) {
       this.game.players.push(player);
-      this.game.kills[player] = this.game.kills[player] || 0;
+      this.game.kills[player] = 0;
+    } else {
+      this.game.kills[player] = 0;
     }
   }
 }
