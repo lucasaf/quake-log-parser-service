@@ -8,7 +8,7 @@ export class ProcessKillUseCase implements IProcessKillUseCase {
     this.game = game;
   }
 
-  public execute(killer: string, killed: string): void {
+  public execute(killer: string, killed: string, mod: string): void {
     this.game.totalKills++;
 
     if (killer !== '<world>') {
@@ -20,5 +20,7 @@ export class ProcessKillUseCase implements IProcessKillUseCase {
     } else {
       this.game.kills[killed] = this.game.kills[killed] || 0;
     }
+
+    this.game.killsByMeans[mod] = (this.game.killsByMeans[mod] || 0) + 1;
   }
 }

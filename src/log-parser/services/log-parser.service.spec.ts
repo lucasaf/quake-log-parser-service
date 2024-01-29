@@ -54,5 +54,7 @@ describe('LogParserService', () => {
     expect(games[0].totalKills).toBe(2);
     expect(games[0].players).toContain('Player1');
     expect(games[0].players).toContain('Player3');
+    expect(games[0].killsByMeans['MOD_TRIGGER_HURT']).toBe(1);
+    expect(games[0].killsByMeans['MOD_RAILGUN']).toBe(1);
   });
 });

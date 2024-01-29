@@ -59,13 +59,12 @@ export class LogParserService implements ILogParserService {
   }
 
   private processKillLine(line: string, currentGame: Game): void {
-    const parts = line.match(/Kill: \d+ \d+ \d+: (.+) killed (.+) by \w+/);
+    const parts = line.match(/Kill: \d+ \d+ \d+: (.+) killed (.+) by (\w+)/);
 
     if (!parts) return;
 
-    const [, killer, killed] = parts;
-
+    const [, killer, killed, mod] = parts;
     this.processKillUseCase.setGame(currentGame);
-    this.processKillUseCase.execute(killer, killed);
+    this.processKillUseCase.execute(killer, killed, mod);
   }
 }

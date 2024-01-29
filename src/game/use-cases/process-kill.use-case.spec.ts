@@ -13,28 +13,31 @@ describe('ProcessKillUseCase', () => {
 
     game = moduleRef.get<Game>(Game);
     processKillUseCase = moduleRef.get<ProcessKillUseCase>(ProcessKillUseCase);
-    processKillUseCase.setGame(game); // Definindo o jogo no caso de uso
+    processKillUseCase.setGame(game);
   });
 
   it('should increase total kills and player kills', () => {
     const killer = 'Player1';
     const killed = 'Player2';
+    const mod = 'MOD_RAILGUN';
 
-    processKillUseCase.execute(killer, killed);
+    processKillUseCase.execute(killer, killed, mod);
 
     expect(game.totalKills).toBe(1);
     expect(game.kills[killer]).toBe(1);
+    expect(game.killsByMeans[mod]).toBe(1);
   });
 
   it('should decrease kills when killed by <world>', () => {
     const killer = '<world>';
     const killed = 'Player1';
+    const mod = 'MOD_RAILGUN';
 
-    // Simulando uma morte anterior
     game.kills[killed] = 1;
 
-    processKillUseCase.execute(killer, killed);
+    processKillUseCase.execute(killer, killed, mod);
 
     expect(game.kills[killed]).toBe(0);
+    expect(game.killsByMeans[mod]).toBe(1);
   });
 });
