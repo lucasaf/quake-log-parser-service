@@ -6,8 +6,28 @@ This application parses and analyzes Quake game server logs. It extracts key gam
 
 ## Technologies
 
-- [NestJS](https://nestjs.com/):
-- [pnpm](https://pnpm.io/):
+- [NestJS](https://nestjs.com/)
+- [pnpm](https://pnpm.io/)
+
+## Prerequisites
+
+Before you can run the Quake Log Parser Service, ensure you have the following software installed on your system:
+
+1. **Node.js**: The runtime environment for running the application. You need Node.js version 12.x or later. You can download it from [Node.js official website](https://nodejs.org/).
+
+2. **pnpm**: A fast and efficient package manager for JavaScript. It is used to manage the application's dependencies. Install pnpm globally using the following command:
+
+```bash
+npm install -g pnpm
+```
+
+3. **NestJS CLI**: The command-line interface tool that helps you to initialize, develop, and maintain your NestJS applications. It can be installed globally using pnpm:
+
+```bash
+pnpm install -g @nestjs/cli
+```
+
+After installing these prerequisites, you can proceed with the installation and running of the Quake Log Parser Service as described in the previous sections of the README.
 
 ## Installation
 
