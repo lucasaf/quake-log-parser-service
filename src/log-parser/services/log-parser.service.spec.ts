@@ -57,4 +57,46 @@ describe('LogParserService', () => {
     expect(games[0].killsByMeans['MOD_TRIGGER_HURT']).toBe(1);
     expect(games[0].killsByMeans['MOD_RAILGUN']).toBe(1);
   });
+
+  it('should correctly parse multiple games from a single log file', async () => {
+    jest.spyOn(fileReaderService, 'readLines').mockResolvedValue([
+      // Game 1
+      '20:34 InitGame: ...',
+      '20:34 ClientUserinfoChanged: 2 n\\Player1\\t\\0\\model\\xian/default\\hmodel\\xian/...',
+      '21:15 Kill: 1022 2 22: <world> killed Player1 by MOD_TRIGGER_HURT',
+      '22:34 ShutdownGame:',
+      // Game 2
+      '23:10 InitGame: ...',
+      '20:34 ClientUserinfoChanged: 2 n\\Player2\\t\\0\\model\\xian/default\\hmodel\\xian/...',
+      '20:34 ClientUserinfoChanged: 3 n\\Player3\\t\\0\\model\\xian/default\\hmodel\\xian/...',
+      '23:45 Kill: 2 3 10: Player2 killed Player3 by MOD_MACHINEGUN',
+      '23:46 Kill: 2 3 10: Player2 killed Player3 by MOD_MACHINEGUN',
+      '00:15 ShutdownGame:',
+    ]);
+
+    const games = await service.parseLogFile('path/to/logfile');
+
+    expect(games).toHaveLength(2);
+    expect(games[0].totalKills).toBe(1);
+    expect(games[0].players).toContain('Player1');
+    expect(games[1].totalKills).toBe(2);
+    expect(games[1].players).toContain('Player2');
+  });
+
+  it('should correctly handle games without kills', async () => {
+    jest
+      .spyOn(fileReaderService, 'readLines')
+      .mockResolvedValue([
+        '20:34 InitGame: ...',
+        'ClientConnect: 2',
+        '20:34 ClientUserinfoChanged: 2 n\\Player1...',
+        'ClientBegin: 2',
+        '22:34 ShutdownGame:',
+      ]);
+
+    const games = await service.parseLogFile('path/to/logfile');
+
+    expect(games).toHaveLength(1);
+    expect(games[0].totalKills).toBe(0);
+  });
 });
