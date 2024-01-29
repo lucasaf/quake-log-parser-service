@@ -6,6 +6,15 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const cliService = app.get(CliService);
 
-  cliService.initializeCli();
+  console.log('Starting the application');
+
+  try {
+    await cliService.initializeCli();
+    console.log('Finishing the application');
+  } catch (error) {
+    console.error('An error occurred:', error);
+  }
+
+  process.exit(0);
 }
 bootstrap();
